@@ -1,5 +1,7 @@
 package controller;
 
+import annotation.Operation;
+import annotation.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -7,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import service.FileService;
 import service.IngredientService;
 import service.RecipeService;
 
@@ -17,13 +20,13 @@ import java.io.InputStreamReader;
 
 @RestController
 @RequestMapping("/files")
-@Tag(name = "Api для работы с файлами рецептов,ингридиентов", deskription = "Загркузка/Выгрузка рецептов и ингр.")
+@Tag(name = "Api для работы с файлами рецептов,ингридиентов", description = "Загркузка/Выгрузка рецептов и ингр.")
 @RequiredArgsConstructor
 
 public class FileController {
 
     private final RecipeService recipeService;
-    private final IngredientService
+    private FileService ingredientService;
 
     @GetMapping("/recipe/export")
     @Operation(
@@ -47,6 +50,7 @@ public class FileController {
 
         }
     }
+
     @GetMapping("/recipe/export/txt")
     @Operation(
             summary = "выгрузка файлов рецептов в формате txt")
@@ -80,9 +84,10 @@ public class FileController {
             return ResponseEntity.ok("Файл успешно импортирован");
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("Ошибка при загрузке файла.Проверьте корректность файла")
+            return ResponseEntity.badRequest().body("Ошибка при загрузке файла.Проверьте корректность файла");
         }
     }
+
     @PostMapping(value = "/ingredient/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(
             summary = "Загрузка файлов ингридиентов")
@@ -93,7 +98,7 @@ public class FileController {
             return ResponseEntity.ok("Файл успешно импортирован");
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("Ошибка при загрузке файла.Проверьте корректность файла")
+            return ResponseEntity.badRequest().body("Ошибка при загрузке файла.Проверьте корректность файла");
         }
     }
 }

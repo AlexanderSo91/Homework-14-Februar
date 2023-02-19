@@ -26,7 +26,7 @@ public class RecipeServiceImpl implements RecipeService {
     private final ValidationService validationService;
     private final FileService fileService;
 
-    @Value("${path.of.recipes.file}")
+    @Value("${path.to.recipes.file}")
     private String recipesFilePath;
 
     @Value("${name.of.recipes.file}")
@@ -38,8 +38,6 @@ public class RecipeServiceImpl implements RecipeService {
 
     private Path recipesPath;
 
-
-}
 
     @Override
     public Recipe save(Recipe recipe) {
@@ -104,7 +102,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     private String recipesToString() {
         StringBuilder sb = new StringBuilder();
-        String listEl = "-";
+        String listEl = " - ";
 
         for (Recipe recipe : recipes.values()) {
            sb.append("\n").append(recipesToString()).append("\n");

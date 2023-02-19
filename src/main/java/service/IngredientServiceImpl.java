@@ -10,9 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -21,6 +21,11 @@ public class IngredientServiceImpl implements IngredientService {
     private static long idCounter = 1;
     private Map<Long, Ingredient> ingredients = new HashMap<>();
     private final ValidationService validationService;
+    private Path ingredientPath;
+    private FileService fileService;
+    private String ingredientsFilePath;
+    private String ingredientsFileName;
+
 
     public IngredientServiceImpl(ValidationService validationService) {
         this.validationService = validationService;
@@ -45,7 +50,7 @@ public class IngredientServiceImpl implements IngredientService {
         if (!validationService.validate(ingredient)) {
             throw new ValidationException(ingredient.toString());
         }
-        return ingredients.replace(id,ingredient);
+        return ingredients.replace(id, ingredient);
     }
 
     @Override
@@ -59,20 +64,26 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-        public File readFile() {
-            return ingredientPath.toFile();
-        }
+    public File readFile() {
+        return ingredientPath.toFile();
+    }
 
-        @Override
-        public void uploadFile(MultipartFile file) throws IOException {
-            fileService.uploadFile(file, ingredientPath);
-            ingredients = fileService.readMapFromFile(ingredientPath, new TypeReference<HashMap<Long, Recipe>>() {});
+    @Override
+    public void uploadFile(MultipartFile file) throws IOException {
+        FileService.uploadFile(file, ingredientPath);
+        ingredients = fileService.readMapFromFile(ingredientPath, new TypeReference<HashMap<Long, Ingredient>>() {});
+
+    }
+
+    @Override
+    public void uploadFile(MultipartFile file, Path filePath) {
+
     }
 
     @PostConstruct
     private void init(){
         ingredientPath = Path.of(ingredientsFilePath, ingredientsFileName);
-        ingredients = fileService.readMapFromFile(ingredients, new TypeReference<HashMap<Long, Recipe>>() {});
+        ingredients = fileService.readMapFromFile(ingredients, new TypeReference<HashMap<Long, Ingredient>>() {});
 
 
     }

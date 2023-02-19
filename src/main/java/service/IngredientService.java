@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,4 +23,6 @@ public interface IngredientService {
     File readFile();
 
     void uploadFile(MultipartFile file) throws IOException;
+
+    void uploadFile(MultipartFile file, Path filePath);
 }

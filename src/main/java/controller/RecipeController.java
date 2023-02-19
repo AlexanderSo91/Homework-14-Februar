@@ -1,8 +1,6 @@
 package controller;
 
-import Opperation.Opperation;
-import Tag.Tag;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import annotation.Tag;
 import model.Recipe;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/recipe")
-@Tag(name = "Api рецепты", deskription = "CRUD рецепты")
+@Tag(name = "Api рецепты", description = "CRUD рецепты")
 public class RecipeController {
 
     private final RecipeService recipeService;

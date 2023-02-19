@@ -43,7 +43,7 @@ public class FileService {
         }
     }
 
-    public void uploadFile(MultipartFile file, Path filePath) throws IOException {
+    public static void uploadFile(MultipartFile file, Path filePath) throws IOException {
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
 
@@ -51,7 +51,7 @@ public class FileService {
                 InputStream is = file.getInputStream();
                 OutputStream os = Files.newOutputStream(filePath, CREATE_NEW);
                 BufferedInputStream bis = new BufferedInputStream(is, 1024);
-                BufferredOutputStream bos = new BufferedOutputStream(os,1024);
+                BufferedOutputStream bos = new BufferedOutputStream(os,1024);
         ) {
             bis.transferTo(bos);
         }
@@ -65,5 +65,9 @@ public class FileService {
     private void createNewFile(Path path) throws IOException{
         Files.deleteIfExists(path);
         Files.createFile(path);
+    }
+
+    public void uploadFile(MultipartFile file) {
+
     }
 }
