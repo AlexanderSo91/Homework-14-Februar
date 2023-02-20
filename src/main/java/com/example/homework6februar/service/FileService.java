@@ -1,6 +1,8 @@
-package service;
+package com.example.homework6februar.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,7 +40,10 @@ public class FileService {
                 return new HashMap<>();
             }
             return objectMapper.readValue(json, typeReference);
-        } catch (NoSuchFieldException e) {
+        } catch (JsonMappingException e) {
+            return new HashMap<>();
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

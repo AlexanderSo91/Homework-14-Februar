@@ -1,7 +1,7 @@
-package controller;
+package com.example.homework6februar.controller;
 
-import annotation.Operation;
-import annotation.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -9,14 +9,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import service.FileService;
-import service.IngredientService;
-import service.RecipeService;
+import com.example.homework6februar.service.FileService;
+import com.example.homework6februar.service.RecipeService;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 @RestController
 @RequestMapping("/files")
@@ -94,7 +92,7 @@ public class FileController {
 
     public ResponseEntity<String> uploadIngredientFile(@RequestParam MultipartFile file) {
         try {
-            ingredientService.uploadFile(file);
+            recipeService.uploadFile(file);
             return ResponseEntity.ok("Файл успешно импортирован");
         } catch (IOException e) {
             e.printStackTrace();

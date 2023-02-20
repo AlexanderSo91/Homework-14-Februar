@@ -1,4 +1,4 @@
-package model;
+package com.example.homework6februar.model;
 
 import lombok.*;
 
