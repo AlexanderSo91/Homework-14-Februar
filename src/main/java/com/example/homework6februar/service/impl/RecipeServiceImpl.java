@@ -99,8 +99,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @PostConstruct
     private void init() {
-        recipesPath = Path.of(recipesFilePath, recipesFileName);
-        recipes = fileService.readMapFromFile(recipesPath, new TypeReference<HashMap<Long, Recipe>>() {});
+        recipesPath = Path.of(recipesFilePath,recipesFileName);
+        recipes = fileService.readMapFromFile(recipesPath, new com.fasterxml.jackson.core.type.TypeReference<HashMap<Long, Recipe>>() {});
     }
 
     private String recipesToString() {
